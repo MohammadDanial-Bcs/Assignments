@@ -1,0 +1,148 @@
+package com.example.calculatorassignment;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+
+    private TextView tv1;
+
+    private EditText et1;
+    private EditText et2;
+    private EditText et3;
+    private Spinner spn;
+    private Button calculate;
+    String record="";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        tv1=findViewById(R.id.tv1);
+
+        et1=findViewById(R.id.val1);
+        et2=findViewById(R.id.val2);
+
+
+        calculate=findViewById(R.id.Calculatee);
+
+
+
+        spn=findViewById(R.id.spinner2);
+
+
+        ArrayAdapter<String> myadapter= new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.funs));
+        myadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn.setAdapter(myadapter);
+
+
+spn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position)
+        {
+
+            case 0:
+                try {
+                    record="SelectOne";
+                    break;
+                }catch (Exception e)
+                {
+                    Toast.makeText(MainActivity.this, "Please Select an Option", Toast.LENGTH_SHORT).show();
+
+                }
+            case 1:
+                record="ADD";
+                break;
+            case 2:
+                record="SUBTRACT";
+                break;
+            case 3:
+                record="MULTIPLY";
+                break;
+            case 4:
+                record="DEVIDE";
+
+
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Toast.makeText(MainActivity.this,"Nothing Selected",Toast.LENGTH_SHORT).show();
+    }
+});
+
+try {
+
+
+    calculate.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String val1 = et1.getText().toString();
+            String val2 = et2.getText().toString();
+
+            float val1Int = 0;
+            float val2Int = 0;
+            val1Int = Float.parseFloat(val1);
+            val2Int = Float.parseFloat(val2);
+
+            if (record == "SelectOne")
+            {
+                Toast.makeText(MainActivity.this, "Please Select One Option", Toast.LENGTH_SHORT).show();
+
+            }
+
+            if (record.equals("ADD")) {
+
+                add a = new add();
+                float x = a.addd(val1Int, val2Int);
+
+
+                tv1.setText(String.valueOf(x));
+            }
+
+            if (record.equals("SUBTRACT")) {
+
+                Subtract s = new Subtract();
+                float x = s.subtract(val1Int, val2Int);
+                tv1.setText(String.valueOf(x));
+            }
+            if (record.equals("MULTIPLY")) {
+
+                Multiply m = new Multiply();
+                float x = m.Multiply(val1Int, val2Int);
+                tv1.setText(String.valueOf(x));
+            }
+
+            if (record.equals("DEVIDE")) {
+
+                Division d = new Division();
+                float x = d.Devide(val1Int, val2Int);
+                float y = d.Remainder(val1Int, val2Int);
+                tv1.setText("D  :" + String.valueOf(x) + ",  R  :" + String.valueOf(y));
+            }
+
+
+        }
+    });
+}
+catch (Exception e)
+{
+    Toast.makeText(MainActivity.this, "Wrong Item Selected", Toast.LENGTH_SHORT).show();
+
+}
+    }
+}

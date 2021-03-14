@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CalculatorAssignment</string>
+    <string-array name="funs">
+        <item>SelectOne</item>
+        <item>ADD</item>
+        <item>SUBTRACT</item>
+        <item>MULTIPLY</item>
+        <item>DEVIDE</item>
+    </string-array>
+</resources>
